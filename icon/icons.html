@@ -1,0 +1,827 @@
+<html>
+
+<head>
+<style>
+body { background: #eee; }
+.area span
+{ 
+	border: dashed silver 0.75px; 
+	display: inline-block;
+	margin-left: 0px;
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+</style>
+<script>
+var c = 'x';
+var gx = 'x';
+var iconSize = 240;
+function drawCanvas()
+{
+	drawOne('cvTrig', iconTrig);
+	drawOne('cvStop', iconStop);
+	drawOne('cvOpen', iconOpen);
+	drawOne('cvBase', iconBase);
+	drawOne('cvRepeat', iconRepeat);
+	drawOne('cvSave', iconSave);
+	drawOne('cvLoad', iconLoad);
+	drawOne('cvProg', iconProg);
+	drawOne('cvSett', iconSett);
+	drawOne('cvDiagnosis', iconDiagnosis);
+	drawOne('cvExcel', iconExcel);
+	drawOne('cvHistory', iconHistory);
+	drawOne('cvTerminate', iconTerminate);
+	drawOne('cvLogExport', iconLogExport);
+	drawOne('cvDelete', iconDelete);
+	drawOne('cvWarning', iconWarning);
+	drawOne('cvRecord', iconRecord);
+	drawOne('cvIsFile', iconIsFile);
+	drawOne('cvPagePrev', iconPagePrev);
+	drawOne('cvPagePrev2', iconPagePrev2);
+	drawOne('cvPagePrev3', iconPagePrev3);
+	drawOne('cvPagePrev4', iconPagePrev4);
+	drawOne('cvFileSave', iconFileSave);
+	drawOne('cvFileLoad', iconFileLoad);
+	drawOne('cvLinkDown', iconLinkDown);
+	drawOne('cvLinkUp', iconLinkUp);
+	drawOne('cvLinkUnknown', iconLinkUnknown);
+}
+function drawOne(id, iconFunc)
+{
+	var cv = document.getElementById(id);
+	var g = cv.getContext('2d');
+	c = cv;
+	gx = g;
+	cv.width = cv.height = iconSize;
+
+	g.lineWidth = 16;
+	g.translate(20, 20);
+	iconFunc(g);
+}
+function iconTrig(g)
+{
+	g.lineJoin = 'round';
+	g.fillStyle = 'rgb(128,207,16)';
+	g.moveTo(10,0);
+	g.lineTo(190,100);
+	g.lineTo(10,200);
+	g.closePath();
+	g.fill();
+	g.stroke();
+}
+function iconStop(g)
+{
+	var gp = 22;
+	var right = 200 - gp;
+	g.lineJoin = 'round';
+	g.fillStyle = 'rgb(255,0,0)';
+	g.moveTo(gp,gp);
+	g.lineTo(right,gp);
+	g.lineTo(right,right);
+	g.lineTo(gp,right);
+	g.closePath();
+	g.fill();
+	g.stroke();
+}
+function iconOpen(g)
+{
+	var gp = 10;
+	var right = 200 - gp;
+	var cz = 25;
+	var pos = 10;
+	g.lineJoin = 'round';
+	g.fillStyle = 'rgb(255,224,110)';
+	g.moveTo(gp+cz,gp+pos);
+	g.lineTo(pos+gp+cz*3,gp+pos);
+	g.lineTo(pos+gp+cz*4,gp+cz+pos);
+	g.lineTo(right,gp+cz+pos);
+	g.lineTo(right,right-pos);
+	g.lineTo(gp,right-pos);
+	g.lineTo(gp,gp+cz+pos);
+	g.closePath();
+	g.fill();
+	g.stroke();
+}
+function iconBase(g)
+{
+	var gp = 10;
+	var right = 200 - gp;
+	var cz = 25;
+	var pos = 10;
+	g.lineJoin = 'round';
+	g.fillStyle = 'rgb(148,204,240)';
+	g.moveTo(gp+cz,gp+pos);
+	g.lineTo(pos+gp+cz*3,gp+pos);
+	g.lineTo(pos+gp+cz*4,gp+cz+pos);
+	g.lineTo(right,gp+cz+pos);
+	g.lineTo(right,right-pos);
+	g.lineTo(gp,right-pos);
+	g.lineTo(gp,gp+cz+pos);
+	g.closePath();
+	g.fill();
+	g.stroke();
+}
+function iconRepeat(g)
+{
+	var pi = Math.PI;
+	var p1 = -0.9 * pi;
+	var p2 = 0.73 * pi;
+	var offX = 20;
+	var offY = 45;
+	var r = 45;
+	
+	var ox1 = r * Math.cos(p1) + 100 + offX;
+	var oy1 = r * Math.sin(p1) + 100 + offY;
+	var l = 30;
+	var ro = Math.PI * 1.2;
+	var pn = p1 - 0.38 * Math.PI;
+	
+	g.lineJoin = 'round';
+	//iconTrig(g);
+	//g.moveTo(57 + offX, 55 + offY);
+	g.moveTo(ox1 + l * Math.cos(pn+ro), oy1 + l * Math.sin(pn+ro));
+	g.lineTo(ox1,oy1);
+	l *= 1.05;
+	g.moveTo(ox1 + l * Math.cos(pn-ro), oy1 + l * Math.sin(pn-ro));
+	g.lineTo(ox1,oy1);
+	g.stroke();
+	g.arc(100 + offX, 100 + offY, r, p1, p2);
+	g.lineCap = 'round';
+	g.stroke();
+}
+function iconSave(g)
+{
+	var vCut = 10;
+	g.lineJoin = 'round';
+	g.fillStyle = 'rgb(148,204,240)';
+	var i;
+	for(i = 0; i < 2; i++)
+	{
+		g.beginPath();
+		g.moveTo(10,80 - i * 20);
+		g.lineTo(10,180);
+		g.lineTo(190,180);
+		g.lineTo(190,80 - i * 20);
+		if(0 == i)
+		{
+			g.closePath();
+			g.fill();
+		}
+		else
+		{
+			g.stroke();
+		}
+	}
+	
+	g.moveTo(100,20);
+	g.lineTo(100,150 - vCut);
+	g.lineTo(60,110 - vCut);
+	g.moveTo(100,20);
+	g.lineTo(100,150 - vCut);
+	g.lineTo(140,110 - vCut);
+	g.stroke();
+}
+function iconLoad(g)
+{
+	var vCut = 10;
+	iconBase(g);
+
+	g.translate(0,85);
+	g.scale(1,-1);
+	g.translate(0,-125);
+	g.moveTo(100,60);
+	g.lineTo(100,150 - vCut);
+	g.lineTo(60,110 - vCut);
+	g.moveTo(100,60);
+	g.lineTo(100,150 - vCut);
+	g.lineTo(140,110 - vCut);
+	g.stroke();
+}
+function iconProg(g)
+{
+	var cz = 10;
+	var pd = 22;
+	var bar = 60;
+	var d1 = 98;
+	var d2 = 137;
+	g.lineJoin = 'round';
+	
+	var path = function(g, cz, y1, y2) {
+		g.beginPath();
+		g.moveTo(100,y1);
+		g.lineTo(200-cz,y1);
+		g.lineTo(200-cz,y2);
+		g.lineTo(cz,y2);
+		g.lineTo(cz,y1);
+		g.closePath();
+	};
+	var dash = function(g, pd, d) {
+		g.beginPath();
+		g.moveTo(pd*2.1, d);
+		g.lineTo(pd*2.6, d);
+		g.moveTo(pd*3.9, d);
+		g.lineTo(200-pd*2.1, d);
+		g.stroke();
+	}
+
+	g.fillStyle = 'rgb(255,255,255)';
+	path(g, cz, pd, bar);
+	g.fill();
+	g.fillStyle = 'rgb(148,204,240)';
+	path(g, cz, bar, 200-pd);
+	g.fill();
+	path(g, cz, pd, 200-pd);
+	g.stroke();
+
+	g.lineWidth = 14;
+	g.beginPath();
+	g.moveTo(cz, bar);
+	g.lineTo(200-cz, bar);
+	g.stroke();
+
+	g.lineWidth = 16;
+	g.lineCap = 'round';
+	dash(g, pd, d1);
+	dash(g, pd, d2);
+}
+function iconSett(g)
+{
+	var cx = 100;
+	var r1 = 27;
+	var r2 = 84;
+	var r3 = 67;
+	/*
+	g.moveTo(0,100);
+	g.lineTo(0,0);
+	g.lineTo(100,0);
+	g.stroke();
+	*/
+	
+	g.beginPath();
+	
+	/*
+	g.moveTo(0,0);
+	g.lineTo(200,0);
+	g.lineTo(200,200);
+	g.lineTo(0,200);
+	*/
+	var pi = Math.PI;
+	var i;
+	var seg = 6;
+	var adv = Math.PI * 2 / seg;
+	var sum = Math.PI * 0.5;
+	for(i = 0; i < seg; i++)
+	{
+		g.arc(cx, cx, r2, sum - 0.09 * pi, sum + 0.09 * pi);
+		var st = sum + 0.137 * pi;
+		var ed = sum - 0.137 * pi + adv;
+		var x1 = cx + Math.cos(st) * r3;
+		var y1 = cx + Math.sin(st) * r3;
+		var x2 = cx + Math.cos(ed) * r3;
+		var y2 = cx + Math.sin(ed) * r3;
+		g.lineTo(x1, y1);
+		g.lineTo(x2, y2);
+
+		sum += adv;
+	}
+	g.closePath();
+	
+	//g.moveTo(cx + r2, cx);
+	//g.ellipse(cx,cx,r2,r2,0,2 * Math.PI,0); // big
+	g.moveTo(cx + r1, cx);
+	g.ellipse(cx,cx,r1,r1,0,2 * Math.PI,0, true); // small
+	g.fillStyle = 'rgb(176,176,176)';
+	g.fill();
+	g.stroke();
+}
+function iconDiagnosis(g)
+{
+	var cz = 10;
+	var pd = 22;
+	var bar = 60;
+	var d1 = 98;
+	var d2 = 137;
+	g.lineJoin = 'round';
+	
+	var path = function(g, cz, y1, y2) {
+		g.beginPath();
+		g.moveTo(100,y1);
+		g.lineTo(200-cz,y1);
+		g.lineTo(200-cz,y2);
+		g.lineTo(cz,y2);
+		g.lineTo(cz,y1);
+		g.closePath();
+	};
+	var dash = function(g) {
+		var df = 44;
+		var h = 26;
+		var bs = 119;
+		var c = 100;
+		var w1 = 26;
+		var w2 = 9;
+		var o = -1;
+		g.beginPath();
+		g.moveTo(df,bs-o);
+		g.lineTo(c-w1,bs-o);
+		g.lineTo(c-w2, bs-h);
+		g.lineTo(c+w2, bs+h);
+		g.lineTo(c+w1, bs+o);
+		g.lineTo(200-df, bs+o);
+		g.stroke();
+	}
+
+	g.fillStyle = 'rgb(255,255,255)';
+	path(g, cz, pd, bar);
+	g.fill();
+	g.fillStyle = 'rgb(184,184,184)';
+	path(g, cz, bar, 200-pd);
+	g.fill();
+	path(g, cz, pd, 200-pd);
+	g.stroke();
+
+	g.lineWidth = 14;
+	g.beginPath();
+	g.moveTo(cz, bar);
+	g.lineTo(200-cz, bar);
+	g.stroke();
+
+	g.lineWidth = 16;
+	g.lineCap = 'round';
+	dash(g);
+}
+function iconHistory(g, fr)
+{
+	var offX = 0;
+	var offY = 0;
+	var ang = Math.PI * -0.1;
+	var p1 = Math.PI * -0.9 + ang;
+	var bFr = false;
+	if(! fr)
+	{
+		fr = 1.1;
+		bFr = true;
+	}
+	var p2 = Math.PI * fr + ang;
+	var r = 75;
+	g.fillStyle = 'rgb(255,255,255)';
+	if(bFr)
+	{
+		g.arc(100 + offX, 100 + offY, r, p1, p2);
+		g.fill();
+	}
+	else
+	{
+		g.arc(100 + offX, 100 + offY, r, Math.PI, -Math.PI);
+		g.fill();
+		g.beginPath();
+		g.arc(100 + offX, 100 + offY, r, p1, p2);
+	}
+	g.stroke();
+
+	var ox = 40;
+	var oy = -50;
+	var yy = 100;
+	g.lineWidth = 14;
+	g.beginPath();
+	g.lineJoin = 'round';
+	g.moveTo(100,yy+oy);
+	g.lineTo(100,yy);
+	g.lineTo(100+ox,yy);
+	g.stroke();
+
+}
+function iconExcel(g)
+{
+	iconHistory(g, 0.6)
+
+	//iconOpen(g);
+	g.beginPath();
+
+	g.fillStyle = 'rgb(33,115,70)';
+	var x = 100;
+	var y = 90;
+	var w = 60;
+	var h = 64;
+	var mx = 25 - 106;
+	var my = 34;
+	x += mx;
+	y += my;
+	g.moveTo(x, y);
+	g.lineTo(x+w, y);
+	g.lineTo(x+w, y+h);
+	g.lineTo(x, y+h);
+	g.closePath();
+	g.lineJoin = 'miter';
+	g.stroke();
+	g.fill();
+
+	g.lineCap = 'round';
+	g.beginPath();
+	g.lineWidth = 5;
+	g.strokeStyle = 'rgb(255,255,255)';
+	g.closePath();
+	g.font = "40px Tahoma";
+	g.fillStyle = 'rgb(255,255,255)';
+	g.fillText("X", 118 + mx, 136 + my);
+}
+function iconCircle(g, fr)
+{
+	var offX = 0;
+	var offY = 0;
+	var ang = Math.PI * -0.1;
+	var p1 = Math.PI * -0.9 + ang;
+	var bFr = false;
+	if(! fr)
+	{
+		fr = 1.1;
+		bFr = true;
+	}
+	var p2 = Math.PI * fr + ang;
+	var r = 75;
+	g.fillStyle = 'rgb(255,255,255)';
+	if(bFr)
+	{
+		g.arc(100 + offX, 100 + offY, r, p1, p2);
+		g.fill();
+	}
+	else
+	{
+		g.arc(100 + offX, 100 + offY, r, Math.PI, -Math.PI);
+		g.fill();
+		g.beginPath();
+		g.arc(100 + offX, 100 + offY, r, p1, p2);
+	}
+	g.stroke();
+
+}
+function iconTerminate(g)
+{
+	iconCircle(g);
+	
+	var cross = 30;
+	g.beginPath();
+	g.moveTo(100-cross, 100-cross);
+	g.lineTo(100+cross, 100+cross);
+	g.stroke();
+	g.moveTo(100+cross, 100-cross);
+	g.lineTo(100-cross, 100+cross);
+	g.stroke();
+}
+function iconLogExport(g)
+{
+	iconCircle(g);
+	
+	var sz = 30;
+	g.moveTo(100, 60);
+	g.lineTo(100, 130);
+	g.stroke();
+	g.beginPath();
+	g.lineJoin = 'round';
+	g.moveTo(100-sz, 135-sz);
+	g.lineTo(100, 135);
+	g.lineTo(100+sz, 135-sz);
+	g.stroke();
+}
+function iconDelete(g)
+{
+	var sz = 80;
+	g.lineWidth = 36;
+	g.strokeStyle = 'rgb(255,0,0)';
+	g.moveTo(100-sz, 100-sz);
+	g.lineTo(100+sz, 100+sz);
+	g.stroke();
+	g.beginPath();
+	g.moveTo(100+sz, 100-sz);
+	g.lineTo(100-sz, 100+sz);
+	g.stroke();
+}
+function iconWarning(g)
+{
+	var sz = 16;
+	var off = -3.5;
+	var gp = 0;
+	g.lineJoin = 'round';
+	g.fillStyle = 'rgb(255,240,44)';
+	g.moveTo(100,off+23);
+	g.lineTo(sz-gp,off+200-sz);
+	g.lineTo(200-sz+gp,off+200-sz);
+	g.closePath();
+	g.fill();
+	g.stroke();
+
+	g.beginPath();
+	g.moveTo(100,off+83);
+	g.lineTo(100,off+132);
+	g.moveTo(100,off+143);
+	g.lineTo(100,off+160);
+	g.stroke();
+}
+function iconRecord(g)
+{
+	var cx = 100;
+	var r2 = 80;
+	g.lineWidth = 12;
+	g.fillStyle = 'rgb(255,0,0)';
+	g.arc(cx, cx, r2, 0, Math.PI * 2);
+	g.fill();
+	g.stroke();
+}
+function iconIsFile(g, color)
+{
+	var vv = 30;
+	var hh = 20;
+	var corner = 44;
+	g.lineJoin = 'round';
+	g.fillStyle = 'rgb(255,255,255)';
+	if(color)
+	{
+		g.strokeStyle = color;
+	}
+	g.moveTo(vv, hh);
+	g.lineTo(200-vv, hh);
+
+	//g.lineTo(200-vv, 200-hh);
+	var xa = 200-vv;
+	var ya = 200-hh-corner;
+	g.lineTo(xa, ya);
+	var xb = 200-vv-corner;
+	var yb = 200-hh;
+	g.lineTo(xb, yb);
+	g.lineTo(xb, ya);
+	g.lineTo(xa, ya);
+	g.lineTo(xb, yb);
+
+	g.lineTo(vv, 200-hh);
+	g.closePath();
+	g.fill();
+	g.stroke();
+}
+function iconPagePrev(g)
+{
+	var vv = 20;
+	var hh = 26;
+	var cc = 96;
+	var ccy = 100;
+	var corner = 44;
+	g.lineJoin = 'round';
+	g.lineCap = 'round';
+	var ox;
+	ox = 6;
+	g.moveTo(ox + cc, hh);
+	g.lineTo(ox + vv, ccy);
+	g.lineTo(ox + cc, 200-hh);
+	g.stroke();
+	g.beginPath();
+	/*
+	ox = 80;
+	g.moveTo(ox + cc, hh);
+	g.lineTo(ox + vv, ccy);
+	g.lineTo(ox + cc, 200-hh);
+	g.stroke();
+	*/
+	g.lineTo(ox + vv, ccy);
+	g.lineTo(170, ccy);
+	g.stroke();
+}
+function iconPagePrev2(g)
+{
+	var vv = 10;
+	var hh = 44;
+	var cc = 56;
+	var ccy = 100;
+	var corner = 44;
+	g.lineJoin = 'round';
+	g.lineCap = 'round';
+	g.fillStyle = 'rgb(0,0,0)';
+	var ox;
+	var rt = 1;
+	ox = 16;
+	g.moveTo(ox + rt*cc, ccy-rt*hh);
+	g.lineTo(ox + rt*vv, ccy);
+	g.lineTo(ox + rt*cc, ccy+rt*hh);
+	g.closePath();
+	g.fill();
+	g.stroke();
+	g.beginPath();
+	ox = 106;
+	g.moveTo(ox + rt*cc, ccy-rt*hh);
+	g.lineTo(ox + rt*vv, ccy);
+	g.lineTo(ox + rt*cc, ccy+rt*hh);
+	g.closePath();
+	g.fill();
+	g.stroke();
+}
+function iconPagePrev3(g)
+{
+	var vv = 10;
+	var hh = 44;
+	var cc = 56;
+	var ccy = 100;
+	var corner = 44;
+	g.lineJoin = 'round';
+	g.lineCap = 'round';
+	g.fillStyle = 'rgb(0,0,0)';
+	var ox;
+	var rt = 1;
+	ox = 56;
+	g.moveTo(ox + rt*cc, ccy-rt*hh);
+	g.lineTo(ox + rt*vv, ccy);
+	g.lineTo(ox + rt*cc, ccy+rt*hh);
+	g.closePath();
+	g.fill();
+	g.stroke();
+}
+function iconPagePrev4(g)
+{
+	var vv = 10;
+	var hh = 44;
+	var cc = 56;
+	var ccy = 100;
+	var corner = 44;
+	g.lineJoin = 'round';
+	g.lineCap = 'round';
+	g.fillStyle = 'rgb(0,0,0)';
+	var ox;
+	var rt = 1.25;
+	ox = 52;
+	g.moveTo(ox + rt*cc, ccy-rt*hh);
+	g.lineTo(ox + rt*vv, ccy);
+	g.lineTo(ox + rt*cc, ccy+rt*hh);
+	g.stroke();
+}
+function iconTrigExt(g)
+{
+	iconTrig(g);
+}
+function iconFileSave(g)
+{
+	iconIsFile(g);
+	
+	var posx = 100;
+	var offy = -14;
+	var sz = 30;
+	g.moveTo(posx, offy+66);
+	g.lineTo(posx, offy+130);
+	g.stroke();
+	g.beginPath();
+	g.lineJoin = 'round';
+	var oy2 = offy + 135;
+	g.moveTo(posx-sz, oy2-sz);
+	g.lineTo(posx, oy2);
+	g.lineTo(posx+sz, oy2-sz);
+	g.stroke();
+}
+function iconFileLoad(g)
+{
+	iconIsFile(g);
+	var posx = 100;
+	var offy = -14 + 10;
+	var sz = 30;
+	var oy1 = offy;
+	var oy2 = offy + 66;
+	g.moveTo(posx, oy1+66);
+	g.lineTo(posx, oy1+135);
+	g.stroke();
+	g.beginPath();
+	g.lineJoin = 'round';
+	g.moveTo(posx-sz, oy2+sz);
+	g.lineTo(posx, oy2);
+	g.lineTo(posx+sz, oy2+sz);
+	g.stroke();
+}
+function iconLinkDown(g, color)
+{
+	var c = 100;
+	var off = 26;
+	var len = 46;
+	var ro = Math.PI * 0.25
+	var df = len - off;
+	var vx = Math.cos(ro * 5)
+	var vy = Math.sin(ro * 5)
+	var ox;
+	var oy;
+	var pad = 16;
+	
+	if(! color)
+	{
+		g.strokeStyle = 'rgb(255,0,0)';
+	}
+	else
+	{
+		g.strokeStyle = color;
+	}
+
+	g.arc(c-off, c+off, len, ro+0, ro+Math.PI);
+	ox = c-off+len*vx;
+	oy = c+off+len*vy;
+	vx = pad * Math.cos(ro)
+	vy = -pad * Math.sin(ro)
+	g.lineTo(ox, oy);
+	g.lineTo(ox + vx, oy + vy);
+	g.stroke();
+	g.beginPath()
+	g.arc(c+off, c-off, len, ro+Math.PI, ro+0);
+	vx = Math.cos(ro * 5)
+	vy = Math.sin(ro * 5)
+	ox = c+off-len*vx;
+	oy = c-off-len*vy;
+	vx = -pad * Math.cos(ro)
+	vy = +pad * Math.sin(ro)
+	g.lineTo(ox, oy);
+	g.lineTo(ox + vx, oy + vy);
+	g.stroke();
+	g.beginPath();
+	
+	var lenStrk = 66;
+	var offStrk = 20;
+	g.lineCap = 'square';
+	g.moveTo(c-lenStrk+offStrk, c-lenStrk)
+	g.lineTo(c+lenStrk-offStrk, c+lenStrk)
+	g.stroke();
+}
+function iconLinkUp(g)
+{
+	var c = 100;
+	var off = 26;
+	var len = 50;
+	var ro = Math.PI * 0.25
+	var df = len - off;
+	var vx = Math.cos(ro * 5)
+	var vy = Math.sin(ro * 5)
+	var ox;
+	var oy;
+	var pad = 16 * 3.6;
+	
+	g.strokeStyle = 'rgb(56,220,0)';
+
+	g.arc(c-off, c+off, len, ro+0, ro+Math.PI);
+	ox = c-off+len*vx;
+	oy = c+off+len*vy;
+	vx = pad * Math.cos(ro)
+	vy = -pad * Math.sin(ro)
+	g.lineTo(ox, oy);
+	g.lineTo(ox + vx, oy + vy);
+	g.stroke();
+	g.beginPath()
+	g.arc(c+off, c-off, len, ro+Math.PI, ro+0);
+	vx = Math.cos(ro * 5)
+	vy = Math.sin(ro * 5)
+	ox = c+off-len*vx;
+	oy = c-off-len*vy;
+	vx = -pad * Math.cos(ro)
+	vy = +pad * Math.sin(ro)
+	g.lineTo(ox, oy);
+	g.lineTo(ox + vx, oy + vy);
+	g.stroke();
+	g.beginPath();
+	
+	var lenStrk = 30;
+	var offStrk = 2 * lenStrk;
+	g.lineCap = 'square';
+	g.moveTo(c-lenStrk+offStrk, c-lenStrk)
+	g.lineTo(c+lenStrk-offStrk, c+lenStrk)
+	g.stroke();
+}
+function iconLinkUnknown(g)
+{
+	iconLinkDown(g, 'rgb(160,160,160)');
+}
+</script>
+</head>
+
+<body onload="drawCanvas()">
+<img id="tr" src="trans.png" />
+<br />
+<div class="area">
+<span><canvas id="cvTrig" /></span>
+<span><canvas id="cvStop" /></span>
+<span><canvas id="cvOpen" /></span>
+<span><canvas id="cvRepeat" /></span>
+<span><canvas id="cvBase" /></span>
+<span><canvas id="cvSave" /></span>
+<span><canvas id="cvLoad" /></span>
+<span><canvas id="cvProg" /></span>
+<span><canvas id="cvSett" /></span>
+<span><canvas id="cvDiagnosis" /></span>
+<span><canvas id="cvExcel" /></span>
+<span><canvas id="cvHistory" /></span>
+<span><canvas id="cvTerminate" /></span>
+<span><canvas id="cvLogExport" /></span>
+<span><canvas id="cvDelete" /></span>
+<span><canvas id="cvWarning" /></span>
+<span><canvas id="cvRecord" /></span>
+<span><canvas id="cvIsFile" /></span>
+<span><canvas id="cvPagePrev" /></span>
+<span><canvas id="cvPagePrev2" /></span>
+<span><canvas id="cvPagePrev3" /></span>
+<span><canvas id="cvPagePrev4" /></span>
+<span><canvas id="cvFileSave" /></span>
+<span><canvas id="cvFileLoad" /></span>
+<span><canvas id="cvLinkDown" /></span>
+<span><canvas id="cvLinkUp" /></span>
+<span><canvas id="cvLinkUnknown" /></span>
+</div>
+
+</body>
+
+</html>
